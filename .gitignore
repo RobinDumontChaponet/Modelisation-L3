@@ -1,0 +1,5 @@
+DerivedData/
+*.xcodeproj/
+*.xcodeproj
+rom.xcodeproj/project.pbxproj
+rom.xcodeproj/xcuserdata/r-dc.xcuserdatad/xcschemes/rom.xcscheme
