@@ -20,7 +20,7 @@ const Graphe<S,T> & Graphe<S,T>::operator = (const Graphe<S,T> & graphe) {
 
 template <class S, class T>
 Graphe<S,T>::~Graphe() {
-	PElement< Arete<S,T>>::efface2(this->lAretes);
+	PElement< Arete<S,T> >::efface2(this->lAretes);
 	PElement<Sommet<T> >::efface2(this->lSommets);
 }
 
@@ -114,47 +114,47 @@ Graphe<S,T>::getAreteParSommets( const Sommet<T> * s1, const Sommet<T> * s2) con
  recherche la liste des paires (voisin, arête) adjacentes de sommet dans le graphe
  */
 template <class S, class T>
-PElement<pair<Sommet<T> *, Arete<S, T>*>> *
+PElement<pair<Sommet<T> *, Arete<S, T>*> > *
 Graphe<S, T>::adjacences(const Sommet<T> * sommet) const {
 	const PElement< Arete<S,T> > * l;
 
-	PElement<pair<Sommet<T> *, Arete<S, T>*>> *r; // pair<Sommet<T> *, Arete<S,T>*>
+	PElement<pair<Sommet<T> *, Arete<S, T>*> > *r; // pair<Sommet<T> *, Arete<S,T>*>
 
 	for (l = lAretes, r = NULL; l; l = l->s)
 
 		if (sommet == l->v->debut)
-			r = new PElement<pair<Sommet<T> *, Arete<S, T>*>> (new pair<Sommet<T> *, Arete<S, T>*>(l->v->fin, l->v), r);
+			r = new PElement<pair<Sommet<T> *, Arete<S, T>*> > (new pair<Sommet<T> *, Arete<S, T>*>(l->v->fin, l->v), r);
 		else
 			if (sommet == l->v->fin)
-				r = new PElement<pair<Sommet<T> *, Arete<S, T>*>> (new pair<Sommet<T> *, Arete<S, T>*> (l->v->debut, l->v), r);
+				r = new PElement<pair<Sommet<T> *, Arete<S, T>*> > (new pair<Sommet<T> *, Arete<S, T>*> (l->v->debut, l->v), r);
 	return r;
 }
 
 
 template <class S, class T>
-PElement<pair<Sommet<T> *, Arete<S, T>*>> *
+PElement<pair<Sommet<T> *, Arete<S, T>*> > *
 Graphe<S, T>::predecesseurs(const Sommet<T> * sommet) const {
 	const PElement<Arete<S,T> > * l;
 
-	PElement<pair<Sommet<T> *, Arete<S, T>*>> *r; // pair<Sommet<T> *, Arete<S,T>*>
+	PElement<pair<Sommet<T> *, Arete<S, T>*> > *r; // pair<Sommet<T> *, Arete<S,T>*>
 
 	for (l = lAretes, r = NULL; l; l = l->s)
 		if (sommet == l->v->fin)
-			r = new PElement<pair<Sommet<T> *, Arete<S, T>*>> (new pair<Sommet<T> *, Arete<S, T>*> (l->v->debut, l->v), r);
+			r = new PElement<pair<Sommet<T> *, Arete<S, T>*> > (new pair<Sommet<T> *, Arete<S, T>*> (l->v->debut, l->v), r);
 
 	return r;
 }
 
 template <class S, class T>
-PElement<pair<Sommet<T> *, Arete<S, T>*>> *
+PElement<pair<Sommet<T> *, Arete<S, T>*> > *
 Graphe<S, T>::successeurs(const Sommet<T> * sommet) const {
 	const PElement<Arete<S,T> > * l;
 
-	PElement<pair<Sommet<T> *, Arete<S, T>*>> *r; // pair<Sommet<T> *, Arete<S,T>*>
+	PElement<pair<Sommet<T> *, Arete<S, T>*> > *r; // pair<Sommet<T> *, Arete<S,T>*>
 
 	for (l = lAretes, r = NULL; l; l = l->s)
 		if (sommet == l->v->debut)
-			r = new PElement<pair<Sommet<T> *, Arete<S, T>*>> (new pair<Sommet<T> *, Arete<S, T>*> (l->v->fin, l->v), r);
+			r = new PElement<pair<Sommet<T> *, Arete<S, T>*> > (new pair<Sommet<T> *, Arete<S, T>*> (l->v->fin, l->v), r);
 
 	return r;
 }
