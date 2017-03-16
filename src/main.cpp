@@ -26,13 +26,6 @@
 
 using namespace std;
 
-
-// Nom du fichier à parser
-// /Users/r-dc/Programmation/rom/DerivedData/rom/Build/Products/Debug/rom
-//string fileName;
-//= "../../../../../graphes/data_VRPTW_10_3_2_4.gpr";
-
-
 int main(int argc, char *argv[]) {
 	string fileName;
 
@@ -56,8 +49,10 @@ int main(int argc, char *argv[]) {
 		exit(1);
 	}	
 
-
 	const Graphe<InfoArete, InfoSommet> & graph = parser.getGraph();
+	string sourceName = parser.getSourceName();
+	string pitName = parser.getPitName();
+	string graphName = parser.getGraphName();
 	
 	Algo<InfoArete, InfoSommet>* algo;
 	algo = new dfs<InfoArete, InfoSommet>(&graph);
