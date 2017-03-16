@@ -14,6 +14,9 @@ using namespace std;
 class InfoSommet {
 public:
 	string nom;
+	int n;
+	int num;
+	int ncomp;
 
 	double borneInf, borneSup;
 

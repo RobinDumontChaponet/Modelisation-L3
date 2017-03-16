@@ -19,6 +19,8 @@
 
 #include "Parser.cpp"
 
+#include "algo/dfs.hpp"
+
 #include <time.h>
 
 using namespace std;
@@ -33,6 +35,40 @@ using namespace std;
 int main(int argc, char *argv[]) {
 	string fileName;
 
+	if (argc < 3) {
+		cerr << "Format: prog <option> <file> avec option: " << endl;
+			cerr << "\t-dfs : pour réaliser un DFS" << endl;
+			cerr << "\t-num : pour numéroter les sommets" << endl;
+			cerr << "\t-circle : detection de circuit" << endl;
+			cerr << "\t-topo : trie topologique" << endl;
+			cerr << "\t-connex : " << endl;
+			cerr << "\t..." << endl;
+			exit(1);
+	} 
+	
+	fileName = argv[2];
+
+	Parser<InfoArete, InfoSommet> parser(fileName);
+
+	if(!parser.parse()) {
+		cerr << "La lecture du fichier à échoué." << endl;
+		exit(1);
+	}	
+
+	// Calcul du temps d'execution
+	clock_t start, end;
+	start = clock();
+
+	const Graphe<InfoArete, InfoSommet> & graph = parser.getGraph();
+	
+	if(argc == 3) {
+		if (argv[1] == "-dfs") {
+			dfs<InfoArete, InfoSommet>* algDFS = new dfs<InfoArete, InfoSommet>(&graph);
+			algDFS->evaluate();
+		}
+	}
+
+/*
 	if(argc < 3) {
 		if (argv[1] != "--help") {
 			cerr << "Format: prog <option> <file> avec option: " << endl;
@@ -61,8 +97,7 @@ int main(int argc, char *argv[]) {
 	start = clock();
 
 
-	const Graphe<InfoArete, InfoSommet> & graph = parser.getGraph();
-
+	const Graphe<InfoArete, InfoSommet> & graph = parser.getGraph(); 
 	switch (argv[1]) {
 		case "-dfs":
 			dfs();
@@ -73,7 +108,7 @@ int main(int argc, char *argv[]) {
 		break;
 	}
 
-	/*
+	
 	string sourceName = parser.getSourceName();
 	string pitName = parser.getPitName();
 	string graphName = parser.getGraphName();
@@ -152,13 +187,13 @@ int main(int argc, char *argv[]) {
 		r = &pj[r->clef];
 	}
 	cout << " < " << sourceName << endl << endl;
-	*/
+	
+*/
 	
 	cout << "--- Temps d'execution  -------------------"<< endl << endl;
 
 	end = clock();
 	cout << (double)(end-start)/CLOCKS_PER_SEC << " secondes." << endl << endl;
-
 	system("pause");
 
 	return 0;

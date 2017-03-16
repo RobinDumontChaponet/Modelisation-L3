@@ -158,3 +158,21 @@ Graphe<S, T>::successeurs(const Sommet<T> * sommet) const {
 
 	return r;
 }
+
+template <class S, class T>
+int Graphe<S, T>::degrePlus(const Sommet<T>& i) const {
+	int ret = 0;
+	PElement<pair<Sommet<T> *, Arete<S, T>*> > *l = successeurs(&i); 
+	for (;l;l = l->s)
+		ret++;
+	return ret;
+}
+
+template <class S, class T>
+int Graphe<S, T>::degreMoins(const Sommet<T>& i) const {
+int ret = 0;
+	PElement<pair<Sommet<T> *, Arete<S, T>*> > *l = predecesseurs(&i); 
+	for (;l;l = l->s)
+		ret++;
+	return ret;
+}
