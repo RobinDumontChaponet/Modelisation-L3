@@ -20,6 +20,7 @@
 #include "Parser.cpp"
 
 #include "algo/dfs.hpp"
+#include "algo/dfsNum.hpp"
 
 #include <time.h>
 
@@ -55,145 +56,24 @@ int main(int argc, char *argv[]) {
 		exit(1);
 	}	
 
-	// Calcul du temps d'execution
-	clock_t start, end;
-	start = clock();
 
 	const Graphe<InfoArete, InfoSommet> & graph = parser.getGraph();
 	
-	if(argc == 3) {
-		if (argv[1] == "-dfs") {
-			dfs<InfoArete, InfoSommet>* algDFS = new dfs<InfoArete, InfoSommet>(&graph);
-			algDFS->evaluate();
+	Algo<InfoArete, InfoSommet>* algo;
+	algo = new dfs<InfoArete, InfoSommet>(&graph);
+	/*if(argc == 3) {
+		if (str1.compare(argv[1])==0)
+		else if(str2.compare(argv[1]) == 0) 
+			algo = new dfsNum<InfoArete, InfoSommet>(&graph);
+		else {
+			cerr << "Algorithme non trouvé " << endl << endl;
+			exit(1); 
 		}
-	}
+	}*/
 
-/*
-	if(argc < 3) {
-		if (argv[1] != "--help") {
-			cerr << "Format: prog <option> <file> avec option: " << endl;
-			cerr << "\t-dfs : pour réaliser un DFS" << endl;
-			cerr << "\t-num : pour numéroter les sommets" << endl;
-			cerr << "\t-circle : detection de circuit" << endl;
-			cerr << "\t-topo : trie topologique" << endl;
-			cerr << "\t-connex : " << endl;
-			cerr << "\t..." << endl;//("Aucun fichier .gpr fourni en argument.") << endl;
-			exit(1);
-		}else{
-			//Show help
-		}
-	} else
-		fileName = argv[2];
+	algo->evaluate();
+	//TODO afficher
 
-	Parser<InfoArete, InfoSommet> parser(fileName);
-
-	if(!parser.parse()) {
-		cerr << "La lecture du fichier à échoué." << endl;
-		exit(1);
-	}	
-
-	// Calcul du temps d'execution
-	clock_t start, end;
-	start = clock();
-
-
-	const Graphe<InfoArete, InfoSommet> & graph = parser.getGraph(); 
-	switch (argv[1]) {
-		case "-dfs":
-			dfs();
-		break;
-		case "-num": 
-		break;
-		case "-circle": 
-		break;
-	}
-
-	
-	string sourceName = parser.getSourceName();
-	string pitName = parser.getPitName();
-	string graphName = parser.getGraphName();
-
-	cout << "--- Detail de l'execution -------------------"<< endl << endl;
-
-	unsigned int k = 0;
-	int n = graph.nombreSommets();
-	double *l = new double[n];
-	PElement<Sommet<InfoSommet>> * M = NULL;
-	PElement<Sommet<InfoSommet>> * Mp = NULL;
-
-//	vector<Sommet<InfoSommet>> pj;
-	Sommet<InfoSommet> pj[200];
-
-	fill_n(l, n, DBL_MAX);
-	l[0] = 0;
-
-	M = new PElement<Sommet<InfoSommet>> (chercheSommet<InfoArete, InfoSommet>(&graph, sourceName), M);
-
-	if (graph.successeurs(M->v)==NULL) {
-		cout << "Il existe un circuit de valeur negative." << endl;
-
-		return 0;
-	}
-
-	while (k <= n-1) {
-		k++;
-		Mp = NULL;
-
-		cout << "Iteration " << k << " :" << endl;
-
-		const PElement<Sommet<InfoSommet>> * mTmp ;
-		for (mTmp = M; mTmp != NULL; mTmp = mTmp->s) {
-
-			cout << "\tOn parcourt M, sommet : " << mTmp->v->v.nom << endl;
-
-			const PElement<pair<Sommet<InfoSommet> *, Arete<InfoArete, InfoSommet>* >> * sTmp;
-			for (sTmp = graph.successeurs(mTmp->v); sTmp != NULL; sTmp = sTmp->s) {
-				pair<Sommet<InfoSommet> *, Arete<InfoArete, InfoSommet>*> xj = *sTmp->v;
-
-				cout << "\t\tOn parcourt le successeur : " << xj.first->v.nom << endl;
-
-				double lSucc = l[xj.second->debut->clef] + xj.second->v.cout;
-
-				cout << "\t\tLambda Parent = " << l[xj.second->debut->clef] << endl;
-				cout << "\t\tLamba Parent + Poid de l'arete : " << lSucc << endl;
-
-				if(l[xj.first->clef] > lSucc) {
-					l[xj.first->clef] = lSucc;
-
-					cout << "\t\tOn ajoute le successeur à la prochaine iteration." << endl;
-
-					Mp = new PElement<Sommet<InfoSommet>> (xj.first, Mp);
-
-					pj [xj.first->clef] = *xj.second->debut;
-				}
-
-				cout << endl;
-			}
-
-			cout << endl;
-		}
-
-		cout << endl;
-
-		M = Mp;
-	}
-
-	cout << "--- Chemin -------------------------------"<< endl << endl;
-
-	cout << pitName;
-	Sommet<InfoSommet> *r = &pj[chercheSommet<InfoArete, InfoSommet>(&graph, pitName)->clef];
-	while(r->clef!=0) {
-		cout << " < " << r->v.nom;
-		r = &pj[r->clef];
-	}
-	cout << " < " << sourceName << endl << endl;
-	
-*/
-	
-	cout << "--- Temps d'execution  -------------------"<< endl << endl;
-
-	end = clock();
-	cout << (double)(end-start)/CLOCKS_PER_SEC << " secondes." << endl << endl;
 	system("pause");
 
 	return 0;
