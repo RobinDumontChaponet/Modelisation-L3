@@ -31,15 +31,15 @@ int main(int argc, char *argv[]) {
 
 	if (argc < 3) {
 		cerr << "Format: prog <option> <file> avec option: " << endl;
-			cerr << "\t-dfs : pour réaliser un DFS" << endl;
-			cerr << "\t-num : pour numéroter les sommets" << endl;
-			cerr << "\t-circle : detection de circuit" << endl;
-			cerr << "\t-topo : trie topologique" << endl;
-			cerr << "\t-connex : " << endl;
-			cerr << "\t..." << endl;
-			exit(1);
+		cerr << "\t-dfs : pour réaliser un DFS" << endl;
+		cerr << "\t-num : pour numéroter les sommets" << endl;
+		cerr << "\t-circle : detection de circuit" << endl;
+		cerr << "\t-topo : tri topologique" << endl;
+		cerr << "\t-connex : " << endl;
+		cerr << "\t..." << endl;
+		exit(1);
 	} 
-	
+
 	fileName = argv[2];
 
 	Parser<InfoArete, InfoSommet> parser(fileName);
@@ -53,7 +53,7 @@ int main(int argc, char *argv[]) {
 	string sourceName = parser.getSourceName();
 	string pitName = parser.getPitName();
 	string graphName = parser.getGraphName();
-	
+
 	Algo<InfoArete, InfoSommet>* algo;
 	algo = new dfs<InfoArete, InfoSommet>(&graph);
 	/*if(argc == 3) {
