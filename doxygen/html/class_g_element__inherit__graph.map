@@ -1,0 +1,6 @@
+<map id="GElement" name="GElement">
+<area shape="rect" id="node2" href="$class_arete.html" title="{Arete\&lt; S, T \&gt;\n|+ debut\l+ fin\l+ v\l|+ Arete()\l+ operator string()\l+ estEgal()\l}" alt="" coords="5,141,133,268"/>
+<area shape="rect" id="node3" href="$class_arete.html" title="{Arete\&lt; A, S \&gt;\n|+ debut\l+ fin\l+ v\l|+ Arete()\l+ operator string()\l+ estEgal()\l}" alt="" coords="75,329,202,456"/>
+<area shape="rect" id="node4" href="$class_sommet.html" title="{Sommet\&lt; T \&gt;\n|+ degre\l+ v\l|+ Sommet()\l+ Sommet()\l+ operator string()\l}" alt="" coords="208,148,336,261"/>
+<area shape="rect" id="node5" href="$class_sommet.html" title="{Sommet\&lt; S \&gt;\n|+ degre\l+ v\l|+ Sommet()\l+ Sommet()\l+ operator string()\l}" alt="" coords="256,336,384,449"/>
+</map>

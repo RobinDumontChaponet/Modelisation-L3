@@ -1,0 +1,6 @@
+<map id="PElement&lt; T &gt;" name="PElement&lt; T &gt;">
+<area shape="rect" id="node2" href="$class_p_element.html" title="{PElement\&lt; Arete\&lt; A,\l S \&gt; \&gt;\n|+ v\l+ s\l|+ PElement()\l+ toString()\l+ taille()\l+ efface1()\l+ efface2()\l+ insertionOrdonnee()\l+ retire()\l+ depiler()\l}" alt="" coords="5,247,157,440"/>
+<area shape="rect" id="node3" href="$class_p_element.html" title="{PElement\&lt; Arete\&lt; S,\l T \&gt; \&gt;\n|+ v\l+ s\l|+ PElement()\l+ toString()\l+ taille()\l+ efface1()\l+ efface2()\l+ insertionOrdonnee()\l+ retire()\l+ depiler()\l}" alt="" coords="181,247,333,440"/>
+<area shape="rect" id="node4" href="$class_p_element.html" title="{PElement\&lt; Sommet\&lt; S \&gt; \&gt;\n|+ v\l+ s\l|+ PElement()\l+ toString()\l+ taille()\l+ efface1()\l+ efface2()\l+ insertionOrdonnee()\l+ retire()\l+ depiler()\l}" alt="" coords="357,253,541,433"/>
+<area shape="rect" id="node5" href="$class_p_element.html" title="{PElement\&lt; Sommet\&lt; T \&gt; \&gt;\n|+ v\l+ s\l|+ PElement()\l+ toString()\l+ taille()\l+ efface1()\l+ efface2()\l+ insertionOrdonnee()\l+ retire()\l+ depiler()\l}" alt="" coords="564,253,747,433"/>
+</map>

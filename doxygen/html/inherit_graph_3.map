@@ -1,0 +1,7 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" href="$class_g_element.html" title="GElement" alt="" coords="5,80,86,105"/>
+<area shape="rect" id="node2" href="$class_arete.html" title="Arete\&lt; S, T \&gt;" alt="" coords="135,5,235,31"/>
+<area shape="rect" id="node3" href="$class_arete.html" title="Arete\&lt; A, S \&gt;" alt="" coords="135,55,236,80"/>
+<area shape="rect" id="node4" href="$class_sommet.html" title="Sommet\&lt; T \&gt;" alt="" coords="135,104,236,129"/>
+<area shape="rect" id="node5" href="$class_sommet.html" title="Sommet\&lt; S \&gt;" alt="" coords="134,153,237,179"/>
+</map>
