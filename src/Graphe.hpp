@@ -52,11 +52,14 @@ public:
 	/**
 	 recherche la liste des paires (voisin, arête) adjacentes de sommet dans le graphe
 	 */
-	PElement<pair<Sommet<T> *, Arete<S,T>* >>  * adjacences(const Sommet<T> * sommet) const;
+	PElement<pair<Sommet<T> *, Arete<S,T>* > >  * adjacences(const Sommet<T> * sommet) const;
 
-	PElement<pair<Sommet<T> *, Arete<S,T>* >> * predecesseurs(const Sommet<T> * sommet) const;
+	PElement<pair<Sommet<T> *, Arete<S,T>* > > * predecesseurs(const Sommet<T> * sommet) const;
 
-	PElement<pair<Sommet<T> *, Arete<S,T>* >> * successeurs(const Sommet<T> * sommet) const;
+	PElement<pair<Sommet<T> *, Arete<S,T>* > > * successeurs(const Sommet<T> * sommet) const;
+
+	int degrePlus(const Sommet<T>& i) const;
+	int degreMoins(const Sommet<T>& i) const;
 
 	operator string() const;
 

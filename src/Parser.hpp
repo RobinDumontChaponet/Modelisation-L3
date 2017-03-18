@@ -16,7 +16,7 @@ using namespace std;
 // Petit utilitaire pour trouver un sommet par son nom
 template <class A, class S>
 Sommet<S> * chercheSommet (const Graphe<A, S> * g, string name) {
-	Sommet<S> *s = nullptr;
+	Sommet<S> *s = NULL;
 
 	const PElement<Sommet<S>> * pTmp;
 	for (pTmp = g->lSommets; pTmp != NULL; pTmp = pTmp->s)

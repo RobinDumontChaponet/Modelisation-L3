@@ -19,6 +19,9 @@
 
 #include "Parser.cpp"
 
+#include "algo/dfs.hpp"
+#include "algo/dfsNum.hpp"
+
 #include <time.h>
 
 using namespace std;
@@ -26,27 +29,49 @@ using namespace std;
 int main(int argc, char *argv[]) {
 	string fileName;
 
-	if(argc < 2) {
-		cerr << ("Aucun fichier .gpr fourni en argument.") << endl;
+	if (argc < 3) {
+		cerr << "Format: prog <option> <file> avec option: " << endl;
+		cerr << "\t-dfs : pour réaliser un DFS" << endl;
+		cerr << "\t-num : pour numéroter les sommets" << endl;
+		cerr << "\t-circle : detection de circuit" << endl;
+		cerr << "\t-topo : tri topologique" << endl;
+		cerr << "\t-connex : " << endl;
+		cerr << "\t..." << endl;
 		exit(1);
-	} else
-		fileName = argv[1];
+	} 
+
+	fileName = argv[2];
 
 	Parser<InfoArete, InfoSommet> parser;
 
 	if(!parser.parse(fileName)) {
 		cerr << "La lecture du fichier à échoué." << endl;
 		exit(1);
-	}
+	}	
 
-	cout << "graphName = " << parser.getGraphName() << endl;
+	const Graphe<InfoArete, InfoSommet> & graph = parser.getGraph();
+	string sourceName = parser.getSourceName();
+	string pitName = parser.getPitName();
+	string graphName = parser.getGraphName();
+
+	Algo<InfoArete, InfoSommet>* algo;
+	algo = new dfs<InfoArete, InfoSommet>(&graph);
+	/*if(argc == 3) {
+		if (str1.compare(argv[1])==0)
+		else if(str2.compare(argv[1]) == 0) 
+			algo = new dfsNum<InfoArete, InfoSommet>(&graph);
+		else {
+			cerr << "Algorithme non trouvé " << endl << endl;
+			exit(1); 
+		}
+	}*/
+
+	algo->evaluate();
+	//TODO afficher
 
 
-	// Il faudra utiliser des arguments à l'execution… comme dans la branch point6. J'attends le merge pour ne pas compliquer avec deux versions…
+	// SI on choisit d'enregistrer
 	parser.save("../../../../../graphes/saved.gpr");
-
-
-
 
 	// Ici on a l'ancienne recherche du plus court chemin. Ça peut servir.r
 
