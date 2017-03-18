@@ -26,6 +26,30 @@ Sommet<S> * chercheSommet (const Graphe<A, S> * g, string name) {
 	return s;
 }
 
+template <class S>
+string printSommetReverse(PElement<Sommet<S> > *element) {
+	if(element == NULL) return "";
+
+	ostringstream oss;
+
+	oss << printSommetReverse<S>(element->s);
+	oss << element->v->v.nom << "  " << element->v->v.borneInf << "  " << element->v->v.borneSup << endl;
+
+	return oss.str();
+}
+
+template <class S, class T>
+string printAreteReverse(PElement<Arete<S, T> > *element) {
+	if(element == NULL) return "";
+
+	ostringstream oss;
+
+	oss << printAreteReverse<S, T>(element->s);
+	oss << element->v->v.nom << "  " << element->v->debut->v.nom << "  " << element->v->fin->v.nom << "  " << element->v->v.cout << "  " << element->v->v.temps << endl;
+
+	return oss.str();
+}
+
 
 template <class A, class S>
 class Parser {
@@ -36,6 +60,8 @@ private:
 	string graphName;
 
 	string fileName;
+
+	unordered_set<string> sections = {"sectionSommets", "sources", "puits", "sectionArcs", "sectionGraphes"};
 
 	// Petit utilitaire pour le parsing
 	static istream& skipSpace(istream& in) {
@@ -51,9 +77,11 @@ private:
 	}
 
 public:
-	Parser(string fileName);
+	Parser();
 
-	bool parse();
+	bool parse(string fileName);
+
+	bool save(string fileName);
 
 	operator string () const;
 
@@ -78,9 +106,9 @@ template <class A, class S>
 Parser<A, S>::operator string () const {
 	ostringstream oss;
 
-	oss << "File("<< endl;
-	oss << fileName << endl;
-	oss << ")";
+//	oss << "File("<< endl;
+//	oss << fileName << endl;
+//	oss << ")";
 	return oss.str();
 }
 

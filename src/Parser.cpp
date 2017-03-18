@@ -1,16 +1,14 @@
 #include "Parser.hpp"
 
 template <class A, class S>
-Parser<A, S>::Parser(string fileName):fileName(fileName){}
+Parser<A, S>::Parser(){}
 
 template <class A, class S>
-bool Parser<A, S>::parse() { // Parse .gpr
+bool Parser<A, S>::parse(string fileName) { // Parse fileName.gpr
 	cout << fileName << endl;
 
-	unordered_set<string> instructions = {"sectionSommets", "sources", "puits", "sectionArcs", "sectionGraphes"};
-
-	ifstream inFile(fileName);
-	if (!inFile) {
+	ifstream file(fileName);
+	if (!file) {
 		cerr << "File \"" << fileName << "\" not found." << endl;
 		return false;
 	}
@@ -18,13 +16,13 @@ bool Parser<A, S>::parse() { // Parse .gpr
 	string state("");
 	string line;
 	vector<string> values;
-	while (getline(inFile, line)) {
+	while (getline(file, line)) {
 		if (line.empty()) continue;
 
 		if(!line.compare(0, 1, "#"))
 			cout << line << endl << endl;
 		else {
-			if(instructions.find(line) != instructions.end()) {
+			if(sections.find(line) != sections.end()) {
 				state = line;
 
 				cout << "Lecture de la section \"" << state << '"' << endl;
@@ -72,14 +70,69 @@ bool Parser<A, S>::parse() { // Parse .gpr
 				);// ici on peut donc faire values[0] ; values[1] ; values[2] ; values[3] ; values[4]
 			}
 
-			// nom-graphe ; sommet-source ; sommet-puits
-			if(state == "sectionGraphe")
+			// ici on ne respecte pas tout à fait le "format-gpr.pdf" mais on respecte les fichier .gpr fournies…
+			// nom-graphe; i ; sommet-source ; sommet-puits
+			if(state == "sectionGraphes") {
 				graphName = values[0];
+				sourceName = values[2];
+				pitName = values[3];
+			}
 			
 			values.clear();
 		}
 	}
-	inFile.close();
+	file.close();
 
+	return true;
+}
+
+template <class A, class S>
+bool Parser<A, S>::save(string fileName) { // Parse fileName.gpr
+	cout << fileName << endl;
+
+	ofstream file(fileName);
+	if (!file) {
+		cerr << "Cannot write file \"" << fileName << "\"." << endl;
+		return false;
+	}
+
+	string state("");
+	string line;
+	vector<string> values;
+
+	time_t * rawtime = new time_t;
+	struct tm * timeinfo;
+	time(rawtime);
+	timeinfo = localtime(rawtime);
+
+	file << "# saved on " << asctime(timeinfo) << endl;
+
+	file << "ressources 1" << endl;
+	file << endl;
+
+	file << "sectionSommets" << endl;
+	// sommet ; bornes inferieur ; borne superieure de la fenêtre
+	file << printSommetReverse<S>(graph.lSommets);
+	file << endl;
+
+	file << "sources" << endl;
+	file << sourceName << endl;
+	file << endl;
+
+	file << "puits" << endl;
+	file << pitName << endl;
+	file << endl;
+
+	file << "sectionArcs" << endl;
+	// nom-arc ; sommet-initial ; sommet-terminal ; coût ; temps
+	file << printAreteReverse<A, S>(graph.lAretes);
+	file << endl;
+
+	// ici on ne respecte pas tout à fait le "format-gpr.pdf" mais on respecte les fichier .gpr fournies…
+	file << "sectionGraphe" << endl << endl;
+	file << graphName << " i  " << sourceName << "  " << pitName << "  " << endl;
+
+	file.close();
+	
 	return true;
 }
