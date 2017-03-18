@@ -59,8 +59,6 @@ private:
 	string pitName;
 	string graphName;
 
-	string fileName;
-
 	unordered_set<string> sections = {"sectionSommets", "sources", "puits", "sectionArcs", "sectionGraphes"};
 
 	// Petit utilitaire pour le parsing
