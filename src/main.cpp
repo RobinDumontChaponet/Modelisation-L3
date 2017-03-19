@@ -54,14 +54,14 @@ int main(int argc, char *argv[]) {
 	string sourceName = parser.getSourceName();
 	string pitName = parser.getPitName();
 	string graphName = parser.getGraphName();
-	Algo<InfoArete, InfoSommet>* algo;
+	Algo* algo;
 
 	if (string(argv[1]).compare("-dfs") == 0) {
 		cout << "Execution de l'algorithme de recherche en profondeur d'abord (DFS)" << endl;
-		algo = new dfs<InfoArete, InfoSommet>(&graph);
+		algo = new dfs(&graph);
 	}else if (string(argv[1]).compare("-num") == 0 ) {
 		cout << "Execution de l'algorithme de numérotation du graphe" << endl;
-		algo = new dfsNum<InfoArete, InfoSommet>(&graph);
+		algo = new dfsNum(&graph);
 	}else if(string(argv[1]).compare("-pcc") == 0) {
 		if (argc != 5) {
 			cerr << "Format: prog -pcc <source> <destination> <file>" << endl;
@@ -69,7 +69,7 @@ int main(int argc, char *argv[]) {
 		cout << "Execution de l'algorithme de recherche du plus court chemin" << endl;
 		string sourceName(argv[2]);
 		string destName(argv[3]);
-		algo = new PCC<InfoArete, InfoSommet>(&graph, sourceName, destName);
+		algo = new PCC(&graph, sourceName, destName);
 	}else {
 		cerr << "algo " << argv[1] << " n'existe pas " << endl;
 		exit(1);

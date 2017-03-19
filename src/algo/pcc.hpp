@@ -2,20 +2,18 @@
 #include "algo.hpp"
 #include "../Graphe.hpp"
 
-template<typename S, typename T>
 class PCC:
-	public Algo<S,T>
+	public Algo
 {
-	void explore(Sommet<T>& i);
+	void explore(Sommet<InfoSommet>& i);
 public:
-	PCC(const Graphe<S,T>* graphe, const string& sourceName, const string& destName)
-	:Algo<S,T>(graphe) {}
+	PCC(const Graphe<InfoArete,InfoSommet>* graphe, const string& sourceName, const string& destName)
+	:Algo(graphe) {}
 	~PCC();
-	void evaluate();
+	Graphe<InfoArete,InfoSommet> evaluate();
 	
 };
 
-template<typename S, typename T>
-void PCC<S,T>::evaluate() {
+Graphe<InfoArete, InfoSommet> PCC::evaluate() {
 
 }

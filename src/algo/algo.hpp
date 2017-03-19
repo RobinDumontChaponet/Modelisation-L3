@@ -1,25 +1,26 @@
 #pragma once
 
-template<typename S, typename T>
+#include "../InfoArete.hpp"
+#include "../InfoSommet.hpp"
+
 class Algo
 {
 public:
-	const Graphe<S,T>* _graphe;
+	const Graphe<InfoArete,InfoSommet>* _graphe;
+	Graphe<InfoArete,InfoSommet> _res;
+	Sommet<InfoSommet>* successeurI(PElement<pair<Sommet<InfoSommet> *, Arete<InfoArete,InfoSommet>* >> * successeurs, const int i) const;
 
-	Sommet<T>* successeurI(PElement<pair<Sommet<T> *, Arete<S,T>* >> * successeurs, const int i) const;
-
-	Algo(const Graphe<S,T>* g):
+	Algo(const Graphe<InfoArete,InfoSommet>* g):
 	_graphe(g) {}
 	~Algo();
-	virtual void evaluate() = 0;
+	virtual Graphe<InfoArete,InfoSommet> evaluate() = 0;
 };
 
 
 
-template<typename S, typename T>
-Sommet<T>* Algo<S,T>::successeurI(PElement<pair<Sommet<T> *, Arete<S,T>* >> * successeurs, const int i) const {
+Sommet<InfoSommet>* Algo::successeurI(PElement<pair<Sommet<InfoSommet> *, Arete<InfoArete,InfoSommet>* >> * successeurs, const int i) const {
 	int tmp = i;
-	PElement<pair<Sommet<T> *, Arete<S,T>* >> * l = successeurs;
+	PElement<pair<Sommet<InfoSommet> *, Arete<InfoArete,InfoSommet>* >> *  l = successeurs;
 	for (;l;l=l->s) {
 		if(--tmp == 0)
 			return l->v->first;
