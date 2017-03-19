@@ -15,5 +15,5 @@ public:
 };
 
 Graphe<InfoArete, InfoSommet> PCC::evaluate() {
-
+	return _res;
 }

@@ -37,6 +37,7 @@ Graphe<InfoArete,InfoSommet> dfsNum::evaluate() {
 			li->v->v.ncomp = l;
 			explore(*li->v);
 		}
+	return _res;
 }
 
 
