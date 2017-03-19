@@ -21,6 +21,7 @@
 
 #include "algo/dfs.hpp"
 #include "algo/dfsNum.hpp"
+#include "algo/pcc.hpp"
 
 #include <time.h>
 
@@ -40,7 +41,7 @@ int main(int argc, char *argv[]) {
 		exit(1);
 	} 
 
-	fileName = argv[2];
+	fileName = argv[argc-1];
 
 	Parser<InfoArete, InfoSommet> parser;
 
@@ -53,18 +54,26 @@ int main(int argc, char *argv[]) {
 	string sourceName = parser.getSourceName();
 	string pitName = parser.getPitName();
 	string graphName = parser.getGraphName();
-
 	Algo<InfoArete, InfoSommet>* algo;
-	algo = new dfs<InfoArete, InfoSommet>(&graph);
-	/*if(argc == 3) {
-		if (str1.compare(argv[1])==0)
-		else if(str2.compare(argv[1]) == 0) 
-			algo = new dfsNum<InfoArete, InfoSommet>(&graph);
-		else {
-			cerr << "Algorithme non trouvé " << endl << endl;
-			exit(1); 
-		}
-	}*/
+
+	if (string(argv[1]).compare("-dfs") == 0) {
+		cout << "Execution de l'algorithme de recherche en profondeur d'abord (DFS)" << endl;
+		algo = new dfs<InfoArete, InfoSommet>(&graph);
+	}else if (string(argv[1]).compare("-num") == 0 ) {
+		cout << "Execution de l'algorithme de numérotation du graphe" << endl;
+		algo = new dfsNum<InfoArete, InfoSommet>(&graph);
+	}else if(string(argv[1]).compare("-pcc") == 0) {
+		if (argc != 5) {
+			cerr << "Format: prog -pcc <source> <destination> <file>" << endl;
+		}else
+		cout << "Execution de l'algorithme de recherche du plus court chemin" << endl;
+		string sourceName(argv[2]);
+		string destName(argv[3]);
+		algo = new PCC<InfoArete, InfoSommet>(&graph, sourceName, destName);
+	}else {
+		cerr << "algo " << argv[1] << " n'existe pas " << endl;
+		exit(1);
+	}
 
 	algo->evaluate();
 	//TODO afficher
