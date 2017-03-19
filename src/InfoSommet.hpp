@@ -19,6 +19,7 @@ public:
 	int ncomp;
 	int prefix;
 	int suffixe;
+	int lambda;
 
 	double borneInf, borneSup;
 

@@ -227,11 +227,6 @@ int main(int argc, char *argv[]) {
 //	clock_t start, end;
 //	start = clock();
 //
-//	const Graphe<InfoArete, InfoSommet> & graph = parser.getGraph();
-//	string sourceName = parser.getSourceName();
-//	string pitName = parser.getPitName();
-//	string graphName = parser.getGraphName();
-//
 //	cout << "--- Detail de l'execution -------------------"<< endl << endl;
 //
 //	unsigned int k = 0;
@@ -306,7 +301,9 @@ int main(int argc, char *argv[]) {
 //		r = &pj[r->clef];
 //	}
 //	cout << " < " << sourceName << endl << endl;
-//
+
+
+
 //	cout << "--- Temps d'execution  -------------------"<< endl << endl;
 //
 //	end = clock();
