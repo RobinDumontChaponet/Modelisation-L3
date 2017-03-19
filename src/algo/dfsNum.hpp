@@ -35,6 +35,7 @@ Graphe<InfoArete,InfoSommet> dfsNum::evaluate() {
 			li->v->v.prefix = k;
 			l++;
 			li->v->v.ncomp = l;
+			_res.creeSommet(li->v->v);
 			explore(*li->v);
 		}
 	return _res;
@@ -46,6 +47,8 @@ void dfsNum::explore(Sommet<InfoSommet>& i) {
 		Sommet<InfoSommet>* j = Algo::successeurI(Algo::_graphe->successeurs(&i),i.v.n);//  _n[i] successeur de i
 		i.v.n--;
 		if (j->v.num == 0) {
+			_res.creeSommet(j->v);
+			_res.creeArete(&i, j, InfoArete("",0,0));
 			k++;
 			j->v.num = k;
 			j->v.prefix = k;
