@@ -95,51 +95,55 @@ int main(int argc, char *argv[]) {
 				break;
 
 			case '?': case 'h':
-				cout << endl << "Usage: [option]…" << endl << endl;
-
+				cout << endl << "Usage: program [OPTIONS]…" << endl << endl;
 				printLeft("Option");
 				printLeft("GNU long option");
 				printLeft("Meaning");
 				cout << endl;
 
-				printLeft("-d");
+				printLeft(" -h, -?");
+				printLeft("--help");
+				printLeft("Show this message");
+				cout << endl;
+
+				printLeft(" -d");
 				printLeft("--dfs");
 				printLeft("réalise un DFS");
 				cout << endl;
 
-				printLeft("-p");
+				printLeft(" -p");
 				printLeft("--pcc");
 				printLeft("réalise une recherche du plus court chemin");
 				cout << endl;
 
-				printLeft("-n");
+				printLeft(" -n");
 				printLeft("--num");
 				printLeft("numérote les sommets");
 				cout << endl;
 
-				printLeft("-c");
+				printLeft(" -c");
 				printLeft("--circuit");
 				printLeft("réalise une detection de circuit");
 				cout << endl;
 
-				printLeft("-t");
+				printLeft(" -t");
 				printLeft("--topo");
 				printLeft("réalise un tri topologique");
 				cout << endl;
 
-				printLeft("-x");
+				printLeft(" -x");
 				printLeft("--connex");
 				printLeft("réalise une detection de connexité");
 				cout << endl;
 
-				printLeft("-i <fileName>");
+				printLeft(" -i <fileName>");
 				printLeft("--input=<fileName>");
-				printLeft("fichier source");
+				printLeft("charge le fichier .gpr");
 				cout << endl;
 
-				printLeft("-o <fileName>");
+				printLeft(" -o <fileName>");
 				printLeft("--output=<fileName>");
-				printLeft("sauvegarde dans le fichier");
+				printLeft("sauvegarde dans le fichier .gpr");
 				cout << endl;
 
 				exit( EXIT_FAILURE );
