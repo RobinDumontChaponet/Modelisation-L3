@@ -184,7 +184,7 @@ int main(int argc, char *argv[]) {
 	Graphe<InfoArete, InfoSommet> * result = nullptr;
 
 	if(query) {
-		Algo* algo;
+		Algo* algo = NULL;
 
 		switch (query) {
 			case 'd':
@@ -199,28 +199,75 @@ int main(int argc, char *argv[]) {
 
 			case 'p':
 				cout << "Execution de l'algorithme de recherche du plus court chemin" << endl;
-//				algo = new PCC(&graph, sourceName, pitName);
 
-				//	cout << "--- Chemin -------------------------------"<< endl << endl;
-				//
-				//	cout << pitName;
-				//	Sommet<InfoSommet> *r = &pj[chercheSommet<InfoArete, InfoSommet>(&graph, pitName)->clef];
-				//	while(r->clef!=0) {
-				//		cout << " < " << r->v.nom;
-				//		r = &pj[r->clef];
-				//	}
-				//	cout << " < " << sourceName << endl << endl;
+				unsigned int k = 0;
+				int n = graph.nombreSommets();
+				double *l = new double[n];
+				PElement<Sommet<InfoSommet>> * M = NULL;
+				PElement<Sommet<InfoSommet>> * Mp = NULL;
+
+				//	vector<Sommet<InfoSommet>> pj;
+				Sommet<InfoSommet> pj[200];
+
+				fill_n(l, n, DBL_MAX);
+				l[0] = 0;
+
+				M = new PElement<Sommet<InfoSommet>> (chercheSommet(&graph, sourceName), M);
+
+				if (graph.successeurs(M->v)==NULL) {
+					cout << "Il existe un circuit de valeur negative." << endl;
+
+					abort();
+				}
+
+				while (k <= n-1) {
+					k++;
+					Mp = NULL;
+
+					const PElement<Sommet<InfoSommet>> * mTmp ;
+					for (mTmp = M; mTmp != NULL; mTmp = mTmp->s) {
+
+						const PElement<pair<Sommet<InfoSommet> *, Arete<InfoArete, InfoSommet>* >> * sTmp;
+						for (sTmp = graph.successeurs(mTmp->v); sTmp != NULL; sTmp = sTmp->s) {
+							pair<Sommet<InfoSommet> *, Arete<InfoArete, InfoSommet>*> xj = *sTmp->v;
+
+							double lSucc = l[xj.second->debut->clef] + xj.second->v.cout;
+
+							if(l[xj.first->clef] > lSucc) {
+								l[xj.first->clef] = lSucc;
+
+								Mp = new PElement<Sommet<InfoSommet>> (xj.first, Mp);
+
+								pj [xj.first->clef] = *xj.second->debut;
+							}
+						}
+					}
+
+					M = Mp;
+				}
+
+				cout << "--- Chemin -------------------------------"<< endl << endl;
+
+				cout << pitName;
+				Sommet<InfoSommet> *r = &pj[chercheSommet(&graph, pitName)->clef];
+				while(r->clef!=0) {
+					cout << " < " << r->v.nom;
+					r = &pj[r->clef];
+				}
+				cout << " < " << sourceName << endl << endl;
+
+
+
 			break;
-
-			default:
-				break;
 		}
 
-		result = new Graphe<InfoArete, InfoSommet>(algo->evaluate());
+		if(algo!=NULL) {
+			result = new Graphe<InfoArete, InfoSommet>(algo->evaluate());
 
-		if(verbose_flag) {
-			cout << endl << endl << "--- graphe résultant  -------------------" << endl;
-			cout << *result << endl;
+			if(verbose_flag) {
+				cout << endl << endl << "--- graphe résultant  -------------------" << endl;
+				cout << *result << endl;
+			}
 		}
 	}
 
