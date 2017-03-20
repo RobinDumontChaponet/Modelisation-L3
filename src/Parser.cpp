@@ -86,8 +86,6 @@ bool Parser<A, S>::parse(string fileName) { // Parse fileName.gpr
 
 template <class A, class S>
 bool Parser<A, S>::save(string fileName) { // Parse fileName.gpr
-	cout << fileName << endl;
-
 	ofstream file(fileName);
 	if (!file) {
 		cerr << "Cannot write file \"" << fileName << "\"." << endl;

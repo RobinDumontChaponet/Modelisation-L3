@@ -228,19 +228,21 @@ int main(int argc, char *argv[]) {
 		if(result!=NULL)
 			parser.setGraph(*result);
 
-		cout << "--- Sauvegarde dans le fichier " << '"' << outputFileName << '"';
-		if(parser.save(outputFileName))
-			cout << " réussie." << endl;
-		else
-			cout << " échouée." << endl;
+		if(verbose_flag)
+			cout << "--- Sauvegarde dans le fichier " << '"' << outputFileName << '"' << endl;
+
+		if(!parser.save(outputFileName))
+			cout << "Sauvegarde échouée." << endl;
 	}
 
 
 	// Calcul du temps d'execution
-	cout << "--- Temps d'execution  -------------------"<< endl;
+	if(verbose_flag) {
+		cout << "--- Temps d'execution  -------------------"<< endl;
 
-	end = clock();
-	cout << (double)(end-start)/CLOCKS_PER_SEC << " secondes." << endl << endl;
+		end = clock();
+		cout << (double)(end-start)/CLOCKS_PER_SEC << " secondes." << endl << endl;
+	}
 
 //	system("pause"); // cin.ignore().get();
 
