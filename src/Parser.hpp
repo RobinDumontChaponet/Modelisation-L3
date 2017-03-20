@@ -54,6 +54,8 @@ string printAreteReverse(PElement<Arete<S, T> > *element) {
 template <class A, class S>
 class Parser {
 private:
+	bool _verbose;
+
 	Graphe<A, S> graph;
 	string sourceName;
 	string pitName;
@@ -75,7 +77,7 @@ private:
 	}
 
 public:
-	Parser();
+	Parser(bool verbose = false);
 
 	bool parse(string fileName);
 
@@ -85,6 +87,10 @@ public:
 
 	const Graphe<A, S> & getGraph() {
 		return graph;
+	}
+
+	void setGraph(const Graphe<A, S> & g) {
+		graph = g;
 	}
 
 	string getSourceName() const {

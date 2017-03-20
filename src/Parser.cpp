@@ -1,12 +1,9 @@
 #include "Parser.hpp"
 
 template <class A, class S>
-Parser<A, S>::Parser(){}
-
+Parser<A, S>::Parser(bool verbose):_verbose(verbose) {};
 template <class A, class S>
 bool Parser<A, S>::parse(string fileName) { // Parse fileName.gpr
-	cout << fileName << endl;
-
 	ifstream file(fileName);
 	if (!file) {
 		cerr << "File \"" << fileName << "\" not found." << endl;
@@ -19,13 +16,14 @@ bool Parser<A, S>::parse(string fileName) { // Parse fileName.gpr
 	while (getline(file, line)) {
 		if (line.empty()) continue;
 
-		if(!line.compare(0, 1, "#"))
+		if(!line.compare(0, 1, "#") && _verbose)
 			cout << line << endl << endl;
 		else {
 			if(sections.find(line) != sections.end()) {
 				state = line;
 
-				cout << "Lecture de la section \"" << state << '"' << endl;
+				if(_verbose)
+					cout << "Lecture de la section \"" << state << '"' << endl;
 				continue;
 			}
 

@@ -10,12 +10,24 @@ Graphe<S,T>::Graphe():prochaineClef(0),lAretes(NULL),lSommets(NULL){}
 
 template <class S, class T>
 Graphe<S,T>::Graphe(const Graphe<S,T> & graphe) {
-	throw Error("pas encore écrit : reste à faire");
+	// LA la lala La la lalalalala. J'entends rien ! La la lalalala. //
+	prochaineClef = graphe.prochaineClef;
+
+	lAretes  = graphe.lAretes;
+	lSommets = graphe.lSommets;
+	// LA la lala La la lalalalala. J'entends rien ! La la lalalala. //
 }
 
 template <class S, class T>
 const Graphe<S,T> & Graphe<S,T>::operator = (const Graphe<S,T> & graphe) {
-	throw Error("pas encore écrit : reste à faire");
+	// LA la lala La la lalalalala. J'entends rien ! La la lalalala. //
+	prochaineClef = graphe.prochaineClef;
+
+	lAretes  = graphe.lAretes;
+	lSommets = graphe.lSommets;
+	// LA la lala La la lalalalala. J'entends rien ! La la lalalala. //
+
+	return *this;
 }
 
 template <class S, class T>

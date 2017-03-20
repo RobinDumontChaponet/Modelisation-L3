@@ -13,9 +13,10 @@ private:
 	void explore(Sommet<InfoSommet>& i);
 	
 public:
-	dfs(const Graphe<InfoArete,InfoSommet>* g)
-	:Algo(g),k(1),l(0) {}
+	dfs(const Graphe<InfoArete,InfoSommet>* g) :Algo(g),k(1),l(0) {}
+
 	~dfs() {}
+
 	Graphe<InfoArete,InfoSommet> evaluate();
 };
 

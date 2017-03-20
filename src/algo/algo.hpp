@@ -8,10 +8,12 @@ class Algo
 public:
 	const Graphe<InfoArete,InfoSommet>* _graphe;
 	Graphe<InfoArete,InfoSommet> _res;
+	
 	Sommet<InfoSommet>* successeurI(PElement<pair<Sommet<InfoSommet> *, Arete<InfoArete,InfoSommet>* >> * successeurs, const int i) const;
 
 	Algo(const Graphe<InfoArete,InfoSommet>* g):
 	_graphe(g) {}
+
 	~Algo();
 	virtual Graphe<InfoArete,InfoSommet> evaluate() = 0;
 };
