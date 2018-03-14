@@ -1,7 +1,6 @@
 DerivedData/
 *.xcodeproj/
 *.xcodeproj
-rom.xcodeproj/project.pbxproj
-rom.xcodeproj/xcuserdata/r-dc.xcuserdatad/xcschemes/rom.xcscheme
 build/
 graphes/saved.gpr
+.DS_Store

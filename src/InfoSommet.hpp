@@ -9,6 +9,10 @@ using namespace std;
 /**
  Information associée à un sommet représentant un lieu d'une carte routière.
  Un lieu est défini par un nom et par une position géographique
+
+ n = nombre successeurs
+ num = ;
+
  */
 
 class InfoSommet {

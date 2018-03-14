@@ -42,12 +42,15 @@ bool Parser<A, S>::parse(string fileName) { // Parse fileName.gpr
 					); // ici on peut donc faire values[0] ; values[1] ; values[2]
 
 			// nom-sommet-source
-			if(state == "sources")
+			if(state == "sources") {
 				sourceName = values[0];
+			}
 
 			// nom-sommet-puit
-			if(state == "puits")
+			if(state == "puits") {
 				pitName = values[0];
+			}
+
 
 			// nom-arc ; sommet-initial ; sommet-terminal ; coût ; temps
 			if(state == "sectionArcs") {
@@ -70,12 +73,12 @@ bool Parser<A, S>::parse(string fileName) { // Parse fileName.gpr
 
 			// ici on ne respecte pas tout à fait le "format-gpr.pdf" mais on respecte les fichier .gpr fournies…
 			// nom-graphe; i ; sommet-source ; sommet-puits
-			if(state == "sectionGraphes") {
-				graphName = values[0];
-				sourceName = values[2];
-				pitName = values[3];
-			}
-			
+//			if(state == "sectionGraphes") {
+//				graphName = values[0];
+//				sourceName = values[2];
+//				pitName = values[3];
+//			}
+
 			values.clear();
 		}
 	}

@@ -41,9 +41,9 @@ Graphe<InfoArete,InfoSommet> dfsNum::evaluate() {
 	return _res;
 }
 
-
 void dfsNum::explore(Sommet<InfoSommet>& i) {
 	while(i.v.n > 0) {
+
 		Sommet<InfoSommet>* j = Algo::successeurI(Algo::_graphe->successeurs(&i),i.v.n);//  _n[i] successeur de i
 		i.v.n--;
 		if (j->v.num == 0) {

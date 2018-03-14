@@ -1,0 +1,30 @@
+# Graphe N = 10 ; M = 36
+
+ressources 1
+
+sectionSommets
+i1  0  0
+i2  2  12
+i3  15  25
+i4  5  15
+i5  1  36
+
+
+sources
+i1
+
+puits
+i5
+
+sectionArcs
+arc1  i1  i2  4  7
+arc2  i2  i3  18  20
+arc3  i3  i5  14  10
+arc4  i1  i4  20  6
+arc5  i4  i2  12  9
+arc6  i4  i3  3  7
+arc7  i4  i5  9  1
+
+sectionGraphes
+
+graphe1 i i1  i5

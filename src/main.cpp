@@ -259,6 +259,15 @@ int main(int argc, char *argv[]) {
 
 
 			break;
+//
+//			case 'c':
+//				
+//
+//			break;
+//
+//			default:
+//				cout << "Aucune commande.";
+//			break;
 		}
 
 		if(algo!=NULL) {
@@ -272,8 +281,9 @@ int main(int argc, char *argv[]) {
 	}
 
 	if(!outputFileName.empty()) { // SI on choisit d'enregistrer
-		if(result!=NULL)
+		if(result!=NULL) {
 			parser.setGraph(*result);
+		}
 
 		if(verbose_flag)
 			cout << "--- Sauvegarde dans le fichier " << '"' << outputFileName << '"' << endl;
