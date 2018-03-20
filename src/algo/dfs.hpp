@@ -3,7 +3,7 @@
 #include "../Graphe.hpp"
 
 class dfs:
-	public Algo
+public Algo
 {
 private:
 	int k;

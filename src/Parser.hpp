@@ -38,6 +38,18 @@ string printSommetReverse(PElement<Sommet<S> > *element) {
 	return oss.str();
 }
 
+template <class S>
+string printSommet(PElement<Sommet<S> > *element) {
+	if(element == NULL) return "";
+
+	ostringstream oss;
+
+	oss << element->v->v.nom << "  " << element->v->v.borneInf << "  " << element->v->v.borneSup << endl;
+	oss << printSommet<S>(element->s);
+
+	return oss.str();
+}
+
 template <class S, class T>
 string printAreteReverse(PElement<Arete<S, T> > *element) {
 	if(element == NULL) return "";
@@ -46,6 +58,18 @@ string printAreteReverse(PElement<Arete<S, T> > *element) {
 
 	oss << printAreteReverse<S, T>(element->s);
 	oss << element->v->v.nom << "  " << element->v->debut->v.nom << "  " << element->v->fin->v.nom << "  " << element->v->v.cout << "  " << element->v->v.temps << endl;
+
+	return oss.str();
+}
+
+template <class S, class T>
+string printArete(PElement<Arete<S, T> > *element) {
+	if(element == NULL) return "";
+
+	ostringstream oss;
+
+	oss << element->v->v.nom << "  " << element->v->debut->v.nom << "  " << element->v->fin->v.nom << "  " << element->v->v.cout << "  " << element->v->v.temps << endl;
+	oss << printArete<S, T>(element->s);
 
 	return oss.str();
 }
@@ -91,6 +115,13 @@ public:
 
 	void setGraph(const Graphe<A, S> & g) {
 		graph = g;
+	}
+
+	Sommet<S>* getSource() const {
+		return chercheSommet<A, S>(&graph, sourceName);
+	}
+	Sommet<S>* getPit() const {
+		return chercheSommet<A, S>(&graph, pitName);
 	}
 
 	string getSourceName() const {

@@ -56,11 +56,12 @@ int main(int argc, char *argv[]) {
 			{"help",    no_argument,       0, 'h'},
 
 			{"dfs",   no_argument,       &query, 'd'},
-			{"num",     no_argument,       &query, 'n'},
+//			{"num",     no_argument,       &query, 'n'},
 			{"pcc",     no_argument,       &query, 'p'},
-			{"circuit",  no_argument,       &query, 'c'},
-			{"topo",    no_argument,       &query, 't'},
-			{"connex",  no_argument,       &query, 'x'},
+
+//			{"circuit",  no_argument,       &query, 'c'},
+//			{"topo",    no_argument,       &query, 't'},
+//			{"connex",  no_argument,       &query, 'x'},
 
 			{"input",   required_argument, 0, 'i'},
 			{"output",  required_argument, 0, 'o'},
@@ -116,25 +117,25 @@ int main(int argc, char *argv[]) {
 				printLeft("réalise une recherche du plus court chemin");
 				cout << endl;
 
-				printLeft(" -n");
-				printLeft("--num");
-				printLeft("numérote les sommets");
-				cout << endl;
+//				printLeft(" -n");
+//				printLeft("--num");
+//				printLeft("numérote les sommets");
+//				cout << endl;
 
-				printLeft(" -c");
-				printLeft("--circuit");
-				printLeft("réalise une detection de circuit");
-				cout << endl;
+//				printLeft(" -c");
+//				printLeft("--circuit");
+//				printLeft("réalise une detection de circuit");
+//				cout << endl;
 
-				printLeft(" -t");
-				printLeft("--topo");
-				printLeft("réalise un tri topologique");
-				cout << endl;
+//				printLeft(" -t");
+//				printLeft("--topo");
+//				printLeft("réalise un tri topologique");
+//				cout << endl;
 
-				printLeft(" -x");
-				printLeft("--connex");
-				printLeft("réalise une detection de connexité");
-				cout << endl;
+//				printLeft(" -x");
+//				printLeft("--connex");
+//				printLeft("réalise une detection de connexité");
+//				cout << endl;
 
 				printLeft(" -i <fileName>");
 				printLeft("--input=<fileName>");
@@ -169,7 +170,7 @@ int main(int argc, char *argv[]) {
 	Parser<InfoArete, InfoSommet> parser(verbose_flag);
 
 	if(verbose_flag)
-		cout << endl << endl << "--- Lecture du fichier.  -------------------" << endl;
+		cout << endl << endl << "--- Lecture du fichier.  -----------------" << endl;
 
 	if(!parser.parse(inputFileName)) {
 		cerr << "--- La lecture du fichier à échoué." << endl;
@@ -177,6 +178,9 @@ int main(int argc, char *argv[]) {
 	}
 	
 	const Graphe<InfoArete, InfoSommet> & graph = parser.getGraph();
+	
+	Sommet<InfoSommet>* source = parser.getSource();
+	Sommet<InfoSommet>* pit = parser.getPit();
 	string sourceName = parser.getSourceName();
 	string pitName = parser.getPitName();
 	string graphName = parser.getGraphName();
@@ -186,98 +190,40 @@ int main(int argc, char *argv[]) {
 	if(query) {
 		Algo* algo = NULL;
 
+		cout << endl << "--- Algorithme ---------------------------" << endl;
+
 		switch (query) {
 			case 'd':
-				cout << "Execution de l'algorithme de recherche en profondeur d'abord (DFS)" << endl;
+				cout << "Execution de l'algorithme de recherche en profondeur d'abord (DFS)";
 				algo = new dfs(&graph);
 			break;
 
-			case 'n':
-				cout << "Execution de l'algorithme de numérotation du graphe" << endl;
-				algo = new dfsNum(&graph);
-			break;
+//			case 'n':
+//				cout << "Execution de l'algorithme de numérotation du graphe" << endl;
+//				algo = new dfsNum(&graph);
+//			break;
 
 			case 'p':
-				cout << "Execution de l'algorithme de recherche du plus court chemin" << endl;
+				cout << "Execution de l'algorithme de recherche du plus court chemin, version 2.0.0 ;-) ";
 
-				unsigned int k = 0;
-				int n = graph.nombreSommets();
-				double *l = new double[n];
-				PElement<Sommet<InfoSommet>> * M = NULL;
-				PElement<Sommet<InfoSommet>> * Mp = NULL;
-
-				//	vector<Sommet<InfoSommet>> pj;
-				Sommet<InfoSommet> pj[200];
-
-				fill_n(l, n, DBL_MAX);
-				l[0] = 0;
-
-				M = new PElement<Sommet<InfoSommet>> (chercheSommet(&graph, sourceName), M);
-
-				if (graph.successeurs(M->v)==NULL) {
-					cout << "Il existe un circuit de valeur negative." << endl;
-
-					abort();
-				}
-
-				while (k <= n-1) {
-					k++;
-					Mp = NULL;
-
-					const PElement<Sommet<InfoSommet>> * mTmp ;
-					for (mTmp = M; mTmp != NULL; mTmp = mTmp->s) {
-
-						const PElement<pair<Sommet<InfoSommet> *, Arete<InfoArete, InfoSommet>* >> * sTmp;
-						for (sTmp = graph.successeurs(mTmp->v); sTmp != NULL; sTmp = sTmp->s) {
-							pair<Sommet<InfoSommet> *, Arete<InfoArete, InfoSommet>*> xj = *sTmp->v;
-
-							double lSucc = l[xj.second->debut->clef] + xj.second->v.cout;
-
-							if(l[xj.first->clef] > lSucc) {
-								l[xj.first->clef] = lSucc;
-
-								Mp = new PElement<Sommet<InfoSommet>> (xj.first, Mp);
-
-								pj [xj.first->clef] = *xj.second->debut;
-							}
-						}
-					}
-
-					M = Mp;
-				}
-
-				cout << "--- Chemin -------------------------------"<< endl << endl;
-
-				cout << pitName;
-				Sommet<InfoSommet> *r = &pj[chercheSommet(&graph, pitName)->clef];
-				while(r->clef!=0) {
-					cout << " < " << r->v.nom;
-					r = &pj[r->clef];
-				}
-				cout << " < " << sourceName << endl << endl;
-
-
-
+				algo = new pcc(&graph, source, pit);
 			break;
-//
-//			case 'c':
-//				
-//
-//			break;
-//
-//			default:
-//				cout << "Aucune commande.";
-//			break;
 		}
+
+		cout << endl;
 
 		if(algo!=NULL) {
 			result = new Graphe<InfoArete, InfoSommet>(algo->evaluate());
 
+			cout << endl;
+
 			if(verbose_flag) {
-				cout << endl << endl << "--- graphe résultant  -------------------" << endl;
-				cout << *result << endl;
+				cout << endl << "--- graphe résultant  -------------------" << endl;
+				cout << *result << endl << endl;
 			}
 		}
+	} else {
+		cout << endl << "Aucune commande." << endl << endl;
 	}
 
 	if(!outputFileName.empty()) { // SI on choisit d'enregistrer
@@ -285,8 +231,10 @@ int main(int argc, char *argv[]) {
 			parser.setGraph(*result);
 		}
 
-		if(verbose_flag)
-			cout << "--- Sauvegarde dans le fichier " << '"' << outputFileName << '"' << endl;
+		if(verbose_flag) {
+			cout << "--- Écriture du fichier.  ----------------" << endl;
+			cout << "Sauvegarde dans " << '"' << outputFileName << '"' << endl << endl;
+		}
 
 		if(!parser.save(outputFileName))
 			cout << "Sauvegarde échouée." << endl;

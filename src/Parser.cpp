@@ -3,7 +3,7 @@
 template <class A, class S>
 Parser<A, S>::Parser(bool verbose):_verbose(verbose) {};
 template <class A, class S>
-bool Parser<A, S>::parse(string fileName) { // Parse fileName.gpr
+bool Parser<A, S>::parse(string fileName) { // Parse fileName
 	ifstream file(fileName);
 	if (!file) {
 		cerr << "File \"" << fileName << "\" not found." << endl;
@@ -38,8 +38,9 @@ bool Parser<A, S>::parse(string fileName) { // Parse fileName.gpr
 					S(
 						values[0],
 						(values[1].length())?stod(values[1]):0,
-						(values[2].length())?stod(values[2]):0)
-					); // ici on peut donc faire values[0] ; values[1] ; values[2]
+						(values[2].length())?stod(values[2]):0
+					)
+				); // ici on peut donc faire values[0] ; values[1] ; values[2]
 
 			// nom-sommet-source
 			if(state == "sources") {
@@ -111,7 +112,7 @@ bool Parser<A, S>::save(string fileName) { // Parse fileName.gpr
 
 	file << "sectionSommets" << endl;
 	// sommet ; bornes inferieur ; borne superieure de la fenêtre
-	file << printSommetReverse<S>(graph.lSommets);
+	file << printSommet<S>(graph.lSommets);
 	file << endl;
 
 	file << "sources" << endl;
@@ -124,7 +125,7 @@ bool Parser<A, S>::save(string fileName) { // Parse fileName.gpr
 
 	file << "sectionArcs" << endl;
 	// nom-arc ; sommet-initial ; sommet-terminal ; coût ; temps
-	file << printAreteReverse<A, S>(graph.lAretes);
+	file << printArete<A, S>(graph.lAretes);
 	file << endl;
 
 	// ici on ne respecte pas tout à fait le "format-gpr.pdf" mais on respecte les fichier .gpr fournies…
