@@ -45,12 +45,24 @@ Graphe<InfoArete,InfoSommet> dfs::evaluate() {
 
 
 void dfs::explore(Sommet<InfoSommet>& i) {
+//	unsigned int c = 1;
+//	std::stringstream arcName;
+//	arcName << "arc" << c;
+
 	while(i.v.n > 0) {
 		Sommet<InfoSommet>* j = Algo::successeurI(Algo::_graphe->successeurs(&i),i.v.n);//  _n[i] successeur de i
 		i.v.n--;
 		if (j->v.num == 0) {
 			_res.creeSommet(j->v);
-			_res.creeArete(&i, j, InfoArete("",0,0));
+
+//			Arete<Sommet<InfoSommet>, InfoSommet> arete = _graphe->getAreteParSommets(&i, j);
+
+//			arcName.clear();
+//			arcName.str(std::string());
+//			arcName << "arc" << ++c;
+			_res.creeArete(&i, j, InfoArete(/*arcName.str()*/"" ,0,0));
+
+//			_res.creeArete(&i, j, InfoArete("",0,0));
 			k++;
 			j->v.num = k;
 			explore(*j);

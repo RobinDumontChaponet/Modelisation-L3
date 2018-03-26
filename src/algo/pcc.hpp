@@ -62,9 +62,19 @@ Graphe<InfoArete, InfoSommet> pcc::evaluate() {
 	M = new PElement<Sommet<InfoSommet>> (source, M);
 
 	if (Algo::_graphe->successeurs(M->v)==NULL) {
-		cout << "Il existe un circuit de valeur negative." << endl;
+		cout << "Il existe un circuit de valeur negative." << endl << endl;
 
 		abort();
+	}
+
+	PElement<Arete<InfoArete, InfoSommet>> *li = Algo::_graphe->lAretes;
+	// Pour chaque sommet
+	for (; li; li = li->s) {
+		if(li->v->v.cout < 0) {
+			cout << "Il existe un arc de valeur negative." << endl;
+
+			abort();
+		}
 	}
 
 	while (k <= n-1) {
