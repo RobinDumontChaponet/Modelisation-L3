@@ -16,6 +16,7 @@ private:
 	PElement<Sommet<InfoSommet>>* M;
 	PElement<Sommet<InfoSommet>>* Mp;
 
+	const unsigned int type;
 
 	string printSommet(PElement<Sommet<InfoSommet>> *element) {
 		if(element == NULL) return "";
@@ -29,7 +30,10 @@ private:
 	}
 	
 public:
-	pcc(const Graphe<InfoArete,InfoSommet>* graphe, Sommet<InfoSommet>* s, Sommet<InfoSommet>* d) :Algo(graphe),k(0),n(_graphe->nombreSommets()),fin(false) {
+	static const unsigned int typeCout = 0;
+	static const unsigned int typeTemps = 1;
+
+	pcc(const Graphe<InfoArete,InfoSommet>* graphe, Sommet<InfoSommet>* s, Sommet<InfoSommet>* d, const unsigned int type = pcc::typeCout) :Algo(graphe),k(0),n(_graphe->nombreSommets()),fin(false), type(type) {
 		l = new double[n];
 		M = NULL;
 		Mp = NULL;
@@ -70,10 +74,18 @@ Graphe<InfoArete, InfoSommet> pcc::evaluate() {
 	PElement<Arete<InfoArete, InfoSommet>> *li = Algo::_graphe->lAretes;
 	// Pour chaque sommet
 	for (; li; li = li->s) {
-		if(li->v->v.cout < 0) {
-			cout << "Il existe un arc de valeur negative." << endl;
+		if(type == pcc::typeCout) {
+			if(li->v->v.cout < 0) {
+				cout << "Il existe un arc de valeur negative." << endl;
 
-			abort();
+				abort();
+			}
+		} else {
+			if(li->v->v.temps < 0) {
+				cout << "Il existe un arc de valeur negative." << endl;
+
+				abort();
+			}
 		}
 	}
 
@@ -88,7 +100,12 @@ Graphe<InfoArete, InfoSommet> pcc::evaluate() {
 			for (sTmp = _graphe->successeurs(mTmp->v); sTmp != NULL; sTmp = sTmp->s) {
 				pair<Sommet<InfoSommet> *, Arete<InfoArete, InfoSommet>*> xj = *sTmp->v;
 
-				double lSucc = l[xj.second->debut->clef] + xj.second->v.cout;
+				double lSucc;
+				if(type == pcc::typeCout) {
+					lSucc = l[xj.second->debut->clef] + xj.second->v.cout;
+				} else {
+					lSucc = l[xj.second->debut->clef] + xj.second->v.temps;
+				}
 
 				if(l[xj.first->clef] > lSucc) {
 					l[xj.first->clef] = lSucc;

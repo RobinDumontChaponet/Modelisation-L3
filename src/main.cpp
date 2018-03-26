@@ -56,7 +56,8 @@ int main(int argc, char *argv[]) {
 
 			{"dfs",   no_argument,       &query, 'd'},
 //			{"num",     no_argument,       &query, 'n'},
-			{"pcc",     no_argument,       &query, 'p'},
+			{"pcc",     no_argument,       &query, 'c'},
+			{"ptt",     no_argument,       &query, 't'},
 
 //			{"circuit",  no_argument,       &query, 'c'},
 //			{"topo",    no_argument,       &query, 't'},
@@ -111,9 +112,14 @@ int main(int argc, char *argv[]) {
 				printLeft("réalise un DFS");
 				cout << endl;
 
-				printLeft(" -p");
+				printLeft(" -c");
 				printLeft("--pcc");
-				printLeft("réalise une recherche du plus court chemin");
+				printLeft("réalise une recherche du plus court chemin sur le cout");
+				cout << endl;
+
+				printLeft(" -t");
+				printLeft("--ptt");
+				printLeft("réalise une recherche du plus court chemin sur le temps");
 				cout << endl;
 
 //				printLeft(" -n");
@@ -202,10 +208,16 @@ int main(int argc, char *argv[]) {
 //				algo = new dfsNum(&graph);
 //			break;
 
-			case 'p':
-				cout << "Execution de l'algorithme de recherche du plus court chemin, version 2.0.0 ;-) ";
+			case 'c':
+				cout << "Execution de l'algorithme de recherche du plus court chemin sur le cout, version 2.0.0 ;-) ";
 
-				algo = new pcc(&graph, source, pit);
+				algo = new pcc(&graph, source, pit, pcc::typeCout);
+			break;
+
+			case 't':
+				cout << "Execution de l'algorithme de recherche du plus court chemin sur le temps, version 2.0.0 ;-) ";
+
+				algo = new pcc(&graph, source, pit, pcc::typeTemps);
 			break;
 		}
 
