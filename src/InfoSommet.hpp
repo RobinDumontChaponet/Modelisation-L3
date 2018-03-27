@@ -7,12 +7,9 @@
 using namespace std;
 
 /**
- Information associée à un sommet représentant un lieu d'une carte routière.
- Un lieu est défini par un nom et par une position géographique
-
- n = nombre successeurs
- num = ;
-
+ * n = nombre successeurs;
+ * num = ordre ouverture sommets dfs;
+ * ncomp = identifiant du sous-graphe (dfs);
  */
 
 class InfoSommet {
